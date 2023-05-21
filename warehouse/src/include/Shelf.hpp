@@ -1,8 +1,8 @@
-#include <vector>
+#include "Pallet.hpp"
 
-class shelf{
+class Shelf{
     public:
-        std::vector <int> pallets;
+        std::array <Pallet, 4> pallets;
         shelf();
         bool swapPallet(int slot, int slot2);
 };
