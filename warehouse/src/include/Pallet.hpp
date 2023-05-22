@@ -5,8 +5,8 @@ class Pallet{
         int itemCapacity;
     
     public:
-        pallet(int itemCount, std::string itemName, int itemCapacity);
-        pallet();
+        Pallet(int itemCount, std::string itemName, int itemCapacity);
+        Pallet();
         std::string getItemName();
         int getItemCount();
         int getRemainingSpace();
