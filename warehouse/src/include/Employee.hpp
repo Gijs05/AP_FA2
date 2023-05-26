@@ -1,13 +1,14 @@
 #include <iostream>
+#include <string>
 
 class Employee{
     private:
-        const std::string name;
+        std::string name;
         bool busy;
         bool forkliftCertificate;
     
     public:
-        Employee(std::string name, bool busy, bool forkliftCertificate);
+        Employee(std::string name, bool busy);
         std::string getName();
         bool getBusy();
         void setBusy(bool busy);
