@@ -7,7 +7,9 @@ Shelf::Shelf(){
 
 bool Shelf::swapPallet(int slot, int slot2){
     if(slot <= 4 && slot2 <= 4){
-        std::swap(pallets[slot], pallets[slot2]);
+        Pallet pal = pallets[slot];
+        pallets[slot] = pallets[slot2];
+        pallets[slot2] = pal;
         return true;
     }else{
         return false;
