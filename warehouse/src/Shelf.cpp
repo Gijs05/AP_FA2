@@ -1,5 +1,4 @@
 #include "include\Shelf.hpp"
-#include "include\Pallet.hpp"
 #include <iostream>
 
 Shelf::Shelf(){
@@ -13,4 +12,22 @@ bool Shelf::swapPallet(int slot, int slot2){
     }else{
         return false;
     }
+}
+
+bool Shelf::isEmpty(){
+    for(Pallet pal : pallets){
+        if (pal.getRemainingSpace() != 0 && pal.getItemName() == "" && pal.getItemCount() != 0){
+            return true;
+        }
+    }
+    return false; 
+}
+
+bool Shelf::isFull(){
+    for(Pallet pal : pallets){
+        if (pal.getRemainingSpace() == 0 && pal.getItemName() != "" && pal.getItemCount() == 0){
+            return true;
+        }
+    }
+    return false;
 }
