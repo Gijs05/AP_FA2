@@ -235,3 +235,51 @@ TEST_CASE("Rearrange shelf with quallified, but busy, employee", "Warehouse::rea
     REQUIRE(warehouse.shelves[0].pallets[2].getItemCount() == 30);
     REQUIRE(warehouse.shelves[0].pallets[3].getItemCount() == 10);
 }
+
+TEST_CASE("Pick item that is qualified"){
+     // Construct warehouse with shelf of books.
+    Warehouse warehouse = Warehouse();
+    Shelf shelf1 = Shelf();
+    shelf1.pallets = {
+        Pallet("Books", 100, 20), 
+        Pallet("Books", 100, 40), 
+        Pallet("Books", 100, 30), 
+        Pallet("Books", 100, 10)
+    };
+
+    warehouse.addShelf(shelf1);
+
+    bool succesful = warehouse.pickItems("Books", 50);
+    //Should succeed
+    REQUIRE(succesful);
+
+    //Check if item count changed succesfully
+    REQUIRE(warehouse.shelves[0].pallets[0].getItemCount() == 0);
+    REQUIRE(warehouse.shelves[0].pallets[1].getItemCount() == 10);
+    REQUIRE(warehouse.shelves[0].pallets[2].getItemCount() == 30);
+    REQUIRE(warehouse.shelves[0].pallets[3].getItemCount() == 10);
+}
+
+TEST_CASE("Pick item that is not qualified"){
+    // Construct warehouse with shelf of books.
+    Warehouse warehouse = Warehouse();
+    Shelf shelf1 = Shelf();
+    shelf1.pallets = {
+        Pallet("Books", 100, 20), 
+        Pallet("Books", 100, 20), 
+        Pallet("Books", 100, 5), 
+        Pallet("Books", 100, 10)
+    };
+
+    warehouse.addShelf(shelf1);
+
+    bool succesful = warehouse.pickItems("Books", 60);
+    //Should succeed
+    REQUIRE(!succesful);
+
+    //Check if item count did not change succesfully
+    REQUIRE(warehouse.shelves[0].pallets[0].getItemCount() == 20);
+    REQUIRE(warehouse.shelves[0].pallets[1].getItemCount() == 20);
+    REQUIRE(warehouse.shelves[0].pallets[2].getItemCount() == 5);
+    REQUIRE(warehouse.shelves[0].pallets[3].getItemCount() == 10);
+}
