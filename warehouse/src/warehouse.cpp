@@ -1,4 +1,5 @@
 #include "include\Warehouse.hpp"
+#include <iostream>
 
 Warehouse::Warehouse(){
     this->shelves = {};
@@ -14,33 +15,54 @@ void Warehouse::addShelf(Shelf shelf){
 }
 
 bool Warehouse::rearrangeShelf(Shelf& shelf){
-    for(Employee employee : Employees){
-        if(employee.getBusy() == false && employee.getForkliftCertificate()){
+    for(Employee& employee : Employees){
+        if(employee.getBusy() == false && employee.getForkliftCertificate() == true){
             employee.setBusy(true);
-            for(int indx = 0; indx < 3; indx++){
-                restartLoop:
-                if(shelf.pallets[indx].getItemCount() > shelf.pallets[indx + 1].getItemCount()){
-                    shelf.swapPallet(indx, indx + 1);
+            for(int i = 0; i < 3; i++){
+                for(int indx = 0; indx < 3; indx++){
+                    if(shelf.pallets[indx].getItemCount() > shelf.pallets[indx + 1].getItemCount()){
+                        shelf.swapPallet(indx + 1, indx);
+                    }
                 }
-            goto restartLoop;
-            return true;
             }
+        return true;
         }
     }
     return false;
 }
 
+
 bool Warehouse::pickItems(std::string itemName, int itemCount){
-    int total_items = 0;
-    int total_pallets = 0;
-    for(Shelf sh : shelves){
-        total_pallets += 4;
+    int items = 0;
+    for(Shelf& sh : shelves){
+        for(Pallet& pal : sh.pallets){
+            if(pal.getItemName() == itemName){
+                items += pal.getItemCount();
+            }
+        }
     }
-    if(total_items >= total_pallets){
-        
+    
+    for(Shelf& sh : shelves){
+        for(Pallet& pal : sh.pallets){
+            if(pal.getItemName() == itemName){
+                if(itemCount - pal.getItemCount() >= 0){
+                    itemCount -= pal.getItemCount();
+                    pal = Pallet();
+                }else{
+                    int new_itemCount = pal.getItemCount() - itemCount;
+                    int space = pal.getRemainingSpace() + new_itemCount;
+                    itemCount = 0;
+                    pal = Pallet(pal.getItemName(), space, new_itemCount);
+                }
+            }
+        }
+    }
+    if(itemCount == 0){
         return true;
     }else{
         return false;
     }
-    
 }
+        
+
+
