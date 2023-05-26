@@ -236,6 +236,7 @@ TEST_CASE("Rearrange shelf with quallified, but busy, employee", "Warehouse::rea
     REQUIRE(warehouse.shelves[0].pallets[3].getItemCount() == 10);
 }
 
+// Pick item test cases
 TEST_CASE("Pick item that is qualified"){
      // Construct warehouse with shelf of books.
     Warehouse warehouse = Warehouse();

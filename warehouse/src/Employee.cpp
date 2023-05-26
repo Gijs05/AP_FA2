@@ -1,7 +1,7 @@
 #include "include\Employee.hpp"
 
 // Variabelen om een Employee te kunnen maken
-Employee::Employee(const std::string name, bool forkliftCertificate) : name(name), forkliftCertificate(forkliftCertificate){}
+Employee::Employee(std::string name, bool forkliftCertificate) : name(name), forkliftCertificate(forkliftCertificate){}
 
 // Return de naam
 std::string Employee::getName(){

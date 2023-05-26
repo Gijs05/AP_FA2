@@ -1,40 +1,26 @@
 #include <iostream>
 #include "src/include/Warehouse.hpp"
-Warehouse createMockWarehouse(){
-    Warehouse warehouse = Warehouse();
+
+int main(void){
+    // Eerst maak je een shelf
     Shelf shelf1 = Shelf();
+
+    // Je kan de pallets in delen zoals je wil als het er maar 4 per shelf zijn
     shelf1.pallets = {
         Pallet("Books", 100, 40), 
-        Pallet("Boxes", 100, 10), 
         Pallet("Books", 100, 20), 
-        Pallet("Books", 100, 20)
-    };
-
-    Shelf shelf2 = Shelf();
-    shelf2.pallets = {
-        Pallet("Books", 100, 15), 
-        Pallet("Boxes", 100, 20), 
-        Pallet("Books", 100, 5), 
-        Pallet("Boxes", 100, 30)
-    };
-
-    Shelf shelf3 = Shelf();
-    shelf3.pallets = {
-        Pallet("Toy Bears", 100, 20), 
-        Pallet("Toy Bears", 100, 10), 
         Pallet(), 
-        Pallet("Toy Bears", 100, 30)
+        Pallet()
     };
-    
+
+    // Maak een warehouse aan om je shelf in te stoppen
+    Warehouse warehouse = Warehouse();
     warehouse.addShelf(shelf1);
-    warehouse.addShelf(shelf2);
-    warehouse.addShelf(shelf3);
 
-    warehouse.addEmployee(Employee("Bob", true));
+    // Zorg ook dat je minstens 1 Employee hebt
+    Employee e1 = Employee("Bob", true);
+    warehouse.addEmployee(e1);
 
-    return warehouse;
-}
-int main(void){
-    Warehouse warehouse = createMockWarehouse();   
-    std::cout<< "";
+    // Nu kan je alle functies oproepen die je wil
+    warehouse.pickItems("Books", 30);
 }
