@@ -1,11 +1,14 @@
-class Pallet{
+#include <string>
+#include "Icontainer.hpp"
+
+class Pallet : public Icontainer{
     private:
         int itemCount;
         std::string itemName;
         int itemCapacity;
     
     public:
-        Pallet(int itemCount, std::string itemName, int itemCapacity);
+        Pallet(std::string itemName, int itemCapacity, int itemCount);
         Pallet();
         std::string getItemName();
         int getItemCount();
@@ -13,4 +16,6 @@ class Pallet{
         bool reallocateEmptyPallet(std::string itemName, int itemCapacity);
         bool takeOne();
         bool putOne();
+        bool isEmpty() override;
+        bool isFull() override;
 };

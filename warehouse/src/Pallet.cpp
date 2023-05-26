@@ -1,7 +1,7 @@
 #include "include\Pallet.hpp"
 #include <iostream>
 
-Pallet::Pallet(int itemCount, std::string itemName, int itemCapacity) : itemCount(itemCount), itemName(itemName), itemCapacity(itemCapacity){};
+Pallet::Pallet(std::string itemName, int itemCapacity, int itemCount) : itemCount(itemCount), itemName(itemName), itemCapacity(itemCapacity){};
 
 Pallet::Pallet(){
     itemCount = 0;
@@ -22,8 +22,12 @@ int Pallet::getRemainingSpace(){
 }
 
 bool Pallet::reallocateEmptyPallet(std::string itemName, int itemCapacity){
-    itemName = this->itemName;
-    itemCapacity = this->itemCapacity;
+    if(itemName != "" or itemCapacity != 0){
+    this->itemName = itemName;
+    this->itemCapacity = itemCapacity;
+    return true;
+    }
+    return false;
 }
 
 bool Pallet::takeOne(){
@@ -39,6 +43,22 @@ bool Pallet::putOne(){
     if(itemCount < 4){
     this->itemCount += 1;
     return true;
+    }else{
+        return false;
+    }
+}
+
+bool Pallet::isEmpty(){
+    if (itemCount == 0 && itemName == "" && itemCapacity == 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool Pallet::isFull(){
+    if (this->getRemainingSpace() == 0 && itemName != "" && this->getItemCount() != 0){
+        return true;
     }else{
         return false;
     }
